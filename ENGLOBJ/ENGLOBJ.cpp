@@ -34,7 +34,9 @@ public:
 		cout << feet << "\'-" << inches << '\"';
 	}
 
-	void add_dist(Distance, Distance);
+	/*void add_dist(Distance, Distance);*/
+	Distance add_dist(Distance);
+
 
 private:
 	int feet;
@@ -52,7 +54,8 @@ int main()
 	/*dist2.getdist();*/
 
 	dist1.getdist();
-	dist3.add_dist(dist1, dist2);
+	/*dist3.add_dist(dist1, dist2);*/
+	dist3 = dist1.add_dist(dist2);
 
 	cout << "\ndist1 = ";
 	dist1.showdist();
@@ -66,16 +69,33 @@ int main()
 	return 0;
 }
 
-void Distance::add_dist(Distance d2, Distance d3)
-{
-	inches = d2.inches + d3.inches;
-	feet = 0;
+//void Distance::add_dist(Distance d2, Distance d3)
+//{
+//	inches = d2.inches + d3.inches;
+//	feet = 0;
+//
+//	if (inches >= 12.0)
+//	{
+//		inches -= 12.0;
+//		feet++;
+//	}
+//
+//	feet += d2.feet + d3.feet;
+//}
 
-	if (inches >= 12.0)
+Distance Distance::add_dist(Distance d2)
+{
+	Distance temp;
+
+	temp.inches = inches + d2.inches;
+
+	if (temp.inches >= 12.0)
 	{
-		inches -= 12.0;
-		feet++;
+		temp.inches -= 12.0;
+		temp.feet = 1;
 	}
 
-	feet += d2.feet + d3.feet;
+	temp.feet += feet + d2.feet;
+
+	return temp;
 }
