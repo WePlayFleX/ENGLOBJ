@@ -29,13 +29,13 @@ public:
 		cin >> inches;
 	}
 
-	void showdist()
+	void showdist()const
 	{
 		cout << feet << "\'-" << inches << '\"';
 	}
 
 	/*void add_dist(Distance, Distance);*/
-	Distance add_dist(Distance);
+	Distance add_dist(const Distance&) const;
 
 
 private:
@@ -83,7 +83,7 @@ int main()
 //	feet += d2.feet + d3.feet;
 //}
 
-Distance Distance::add_dist(Distance d2)
+Distance Distance::add_dist(const Distance& d2) const
 {
 	Distance temp;
 
