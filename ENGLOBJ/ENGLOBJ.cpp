@@ -11,7 +11,7 @@ public:
 		inches = in;
 	}*/
 
-	Distance() : feet(0), inches(0.0)
+	/*Distance() : feet(0), inches(0.0)
 	{
 
 	}
@@ -19,7 +19,7 @@ public:
 	Distance(int ft, float in) : feet(ft), inches(in)
 	{
 
-	}
+	}*/
 
 	void getdist()
 	{
@@ -47,22 +47,44 @@ private:
 
 int main()
 {
-	Distance dist1, dist3;
-	Distance dist2(11, 6.25);
+	//Distance dist1, dist3;
+	//Distance dist2(11, 6.25);
 
-	/*dist1.setdist(11, 6.25);*/
-	/*dist2.getdist();*/
+	///*dist1.setdist(11, 6.25);*/
+	///*dist2.getdist();*/
 
-	dist1.getdist();
-	/*dist3.add_dist(dist1, dist2);*/
-	dist3 = dist1.add_dist(dist2);
+	//dist1.getdist();
+	///*dist3.add_dist(dist1, dist2);*/
+	//dist3 = dist1.add_dist(dist2);
 
-	cout << "\ndist1 = ";
-	dist1.showdist();
-	cout << "\ndist2 = ";
-	dist2.showdist();
-	cout << "\ndist3 = ";
-	dist3.showdist();
+	//cout << "\ndist1 = ";
+	//dist1.showdist();
+	//cout << "\ndist2 = ";
+	//dist2.showdist();
+	//cout << "\ndist3 = ";
+	//dist3.showdist();
+	//cout << endl;
+
+	Distance dist[100];
+	int n = 0;
+	char ans;
+
+	cout << endl;
+
+	do
+	{
+		cout << "Enter length number " << n + 1 << " ";
+		dist[n++].getdist();
+		cout << "Continue typing (y/n)?: ";
+		cin >> ans;
+	} while (ans != 'n');
+
+	for (size_t i = 0; i < n; i++)
+	{
+		cout << "\nLength number " << i + 1 << " : ";
+		dist[i].showdist();
+	}
+
 	cout << endl;
 
 	system("pause");
