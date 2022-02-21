@@ -2,6 +2,8 @@
 
 using namespace std;
 
+const int MAX = 100;
+
 class Distance
 {
 public:
@@ -65,7 +67,7 @@ int main()
 	//dist3.showdist();
 	//cout << endl;
 
-	Distance dist[100];
+	Distance dist[MAX];
 	int n = 0;
 	char ans;
 
@@ -73,6 +75,12 @@ int main()
 
 	do
 	{
+		if (n >= MAX)
+		{
+			cout << "\nArray is full!!! " << endl;
+			break;
+		}
+
 		cout << "Enter length number " << n + 1 << " ";
 		dist[n++].getdist();
 		cout << "Continue typing (y/n)?: ";
