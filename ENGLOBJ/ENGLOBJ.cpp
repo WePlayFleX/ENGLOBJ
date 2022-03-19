@@ -214,6 +214,82 @@
 //}
 
 
+//#include <iostream>
+//
+//using namespace std;
+//
+//class Distance
+//{
+//public:
+//
+//	Distance() : feet(0), inches(0.0)
+//	{
+//
+//	}
+//
+//	Distance(int ft, float in) : feet(ft), inches(in)
+//	{
+//
+//	}
+//
+//	void getdist()
+//	{
+//		cout << "Enter number of feet: ";
+//		cin >> feet;
+//		cout << "Enter number of inches: ";
+//		cin >> inches;
+//	}
+//
+//	void showdist()const
+//	{
+//		cout << feet << "\'-" << inches << '\"';
+//	}
+//
+//	bool operator< (Distance) const;
+//
+//private:
+//	int feet;
+//	float inches;
+//};
+//
+//
+//
+//int main()
+//{
+//	Distance dist1;
+//	dist1.getdist();
+//
+//	Distance dist2(6, 2.5);
+//
+//	cout << "\ndist1 = ";
+//	dist1.showdist();
+//	cout << "\ndist2 = ";
+//	dist2.showdist();
+//
+//	if (dist1 < dist2)
+//	{
+//		cout << "\ndist1 less than dist2";
+//	}
+//	else
+//	{
+//		cout << "\ndist1 greater than or equal to dist2";
+//	}
+//
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+//
+//bool Distance::operator<(Distance d2) const
+//{
+//	float bf1 = feet + inches / 12;
+//	float bf2 = d2.feet + d2.inches / 12;
+//	
+//	return (bf1 < bf2) ? true : false;
+//}
+
+
 #include <iostream>
 
 using namespace std;
@@ -240,12 +316,12 @@ public:
 		cin >> inches;
 	}
 
-	void showdist()const
+	void showdist()
 	{
 		cout << feet << "\'-" << inches << '\"';
 	}
 
-	bool operator< (Distance) const;
+	void operator+= (Distance);
 
 private:
 	int feet;
@@ -259,21 +335,19 @@ int main()
 	Distance dist1;
 	dist1.getdist();
 
-	Distance dist2(6, 2.5);
-
 	cout << "\ndist1 = ";
 	dist1.showdist();
+
+	Distance dist2(11, 6.25);
+
 	cout << "\ndist2 = ";
 	dist2.showdist();
 
-	if (dist1 < dist2)
-	{
-		cout << "\ndist1 less than dist2";
-	}
-	else
-	{
-		cout << "\ndist1 greater than or equal to dist2";
-	}
+	dist1 += dist2;
+
+	cout << "\nAfter addition: ";
+	cout << "\ndist1 = ";
+	dist1.showdist();
 
 	cout << endl;
 
@@ -281,10 +355,14 @@ int main()
 	return 0;
 }
 
-bool Distance::operator<(Distance d2) const
+void Distance::operator+=(Distance d2)
 {
-	float bf1 = feet + inches / 12;
-	float bf2 = d2.feet + d2.inches / 12;
-	
-	return (bf1 < bf2) ? true : false;
+	feet += d2.feet;
+	inches += d2.inches;
+
+	if (inches >= 12.0)
+	{
+		inches -= 12.0;
+		feet++;
+	}
 }
