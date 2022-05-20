@@ -368,26 +368,99 @@
 //}
 
 
+//#include <iostream>
+//
+//using namespace std;
+//
+//class Distance
+//{
+//public:
+//	Distance() : feet(0), inches(0.0), MTF(3.280833F)
+//	{
+//
+//	}
+//
+//	Distance(float meters) : MTF(3.280833F)
+//	{
+//		float fltfeet = MTF * meters;
+//		feet = int(fltfeet);
+//		inches = 12 * (fltfeet - feet);
+//	}
+//
+//	Distance(int ft, float in) : feet(ft), inches(in), MTF(3.280833F)
+//	{
+//
+//	}
+//
+//	void getdist()
+//	{
+//		cout << "Enter number of feet: ";
+//		cin >> feet;
+//		cout << "Enter number of inches: ";
+//		cin >> inches;
+//	}
+//
+//	void showdist()const
+//	{
+//		cout << feet << "\'-" << inches << '\"';
+//	}
+//
+//	operator float() const
+//	{
+//		float fracfeet = inches / 12;
+//		fracfeet += static_cast<float>(feet);
+//
+//		return fracfeet / MTF;
+//	}
+//
+//private:
+//	const float MTF;
+//	int feet;
+//	float inches;
+//};
+//
+//
+//
+//int main()
+//{
+//	float mtrs;
+//	Distance dist1 = 2.35F;
+//
+//	cout << "\ndist1 = ";
+//	dist1.showdist();
+//
+//	mtrs = static_cast<float>(dist1);
+//
+//	cout << "\ndist1 = " << mtrs << " meters\n";
+//
+//	Distance dist2(5, 10.25);
+//
+//	mtrs = dist2;
+//
+//	cout << "\ndist2 = " << mtrs << " meters\n";
+//
+//	system("pause");
+//	return 0;
+//}
+
+
 #include <iostream>
 
 using namespace std;
 
 class Distance
 {
+private:
+	int feet;
+	float inches;
+
 public:
-	Distance() : feet(0), inches(0.0), MTF(3.280833F)
+	Distance() : feet(0), inches(0.0)
 	{
 
 	}
 
-	Distance(float meters) : MTF(3.280833F)
-	{
-		float fltfeet = MTF * meters;
-		feet = int(fltfeet);
-		inches = 12 * (fltfeet - feet);
-	}
-
-	Distance(int ft, float in) : feet(ft), inches(in), MTF(3.280833F)
+	Distance(int ft, float in) : feet(ft), inches(in)
 	{
 
 	}
@@ -405,39 +478,55 @@ public:
 		cout << feet << "\'-" << inches << '\"';
 	}
 
-	operator float() const
-	{
-		float fracfeet = inches / 12;
-		fracfeet += static_cast<float>(feet);
-
-		return fracfeet / MTF;
-	}
-
-private:
-	const float MTF;
-	int feet;
-	float inches;
+	Distance operator+(Distance);
+	Distance operator-(Distance);
 };
 
+Distance Distance::operator+(Distance d2)
+{
+	int f = feet + d2.feet;
+	float i = inches + d2.inches;
 
+	if (i >= 12.0)
+	{
+		i -= 12.0;
+		f++;
+	}
+
+	return Distance(f, i);
+}
+
+Distance Distance::operator-(Distance d2)
+{
+	int f = feet - d2.feet;
+	float i = inches - d2.inches;
+
+	if (i < 0)
+	{
+		i += 12.0;
+		f--;
+	}
+
+	return Distance(f, i);
+}
 
 int main()
 {
-	float mtrs;
-	Distance dist1 = 2.35F;
+	Distance dist1, dist3;
+	dist1.getdist();
+
+	Distance dist2(3, 6.25);
+
+	dist3 = dist1 - dist2;
 
 	cout << "\ndist1 = ";
 	dist1.showdist();
+	cout << "\ndist2 = ";
+	dist2.showdist();
+	cout << "\ndist3 = ";
+	dist3.showdist();
 
-	mtrs = static_cast<float>(dist1);
-
-	cout << "\ndist1 = " << mtrs << " meters\n";
-
-	Distance dist2(5, 10.25);
-
-	mtrs = dist2;
-
-	cout << "\ndist2 = " << mtrs << " meters\n";
+	cout << endl;
 
 	system("pause");
 	return 0;
