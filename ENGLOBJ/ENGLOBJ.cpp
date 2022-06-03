@@ -444,9 +444,100 @@
 //}
 
 
+//#include <iostream>
+//
+//using namespace std;
+//
+//class Distance
+//{
+//private:
+//	int feet;
+//	float inches;
+//
+//public:
+//	Distance() : feet(0), inches(0.0)
+//	{
+//
+//	}
+//
+//	Distance(int ft, float in) : feet(ft), inches(in)
+//	{
+//
+//	}
+//
+//	void getdist()
+//	{
+//		cout << "Enter number of feet: ";
+//		cin >> feet;
+//		cout << "Enter number of inches: ";
+//		cin >> inches;
+//	}
+//
+//	void showdist()const
+//	{
+//		cout << feet << "\'-" << inches << '\"';
+//	}
+//
+//	Distance operator+(Distance);
+//	Distance operator-(Distance);
+//};
+//
+//Distance Distance::operator+(Distance d2)
+//{
+//	int f = feet + d2.feet;
+//	float i = inches + d2.inches;
+//
+//	if (i >= 12.0)
+//	{
+//		i -= 12.0;
+//		f++;
+//	}
+//
+//	return Distance(f, i);
+//}
+//
+//Distance Distance::operator-(Distance d2)
+//{
+//	int f = feet - d2.feet;
+//	float i = inches - d2.inches;
+//
+//	if (i < 0)
+//	{
+//		i += 12.0;
+//		f--;
+//	}
+//
+//	return Distance(f, i);
+//}
+//
+//int main()
+//{
+//	Distance dist1, dist3;
+//	dist1.getdist();
+//
+//	Distance dist2(3, 6.25);
+//
+//	dist3 = dist1 - dist2;
+//
+//	cout << "\ndist1 = ";
+//	dist1.showdist();
+//	cout << "\ndist2 = ";
+//	dist2.showdist();
+//	cout << "\ndist3 = ";
+//	dist3.showdist();
+//
+//	cout << endl;
+//
+//	system("pause");
+//	return 0;
+//}
+
+
 #include <iostream>
 
 using namespace std;
+
+enum posneg {pos, neg};
 
 class Distance
 {
@@ -477,54 +568,55 @@ public:
 	{
 		cout << feet << "\'-" << inches << '\"';
 	}
-
-	Distance operator+(Distance);
-	Distance operator-(Distance);
 };
 
-Distance Distance::operator+(Distance d2)
+class DistSing : public Distance
 {
-	int f = feet + d2.feet;
-	float i = inches + d2.inches;
+private:
+	posneg sign;
 
-	if (i >= 12.0)
+public:
+	DistSing() : Distance()
 	{
-		i -= 12.0;
-		f++;
+		sign = pos;
 	}
 
-	return Distance(f, i);
-}
-
-Distance Distance::operator-(Distance d2)
-{
-	int f = feet - d2.feet;
-	float i = inches - d2.inches;
-
-	if (i < 0)
+	DistSign(int ft, float in, posneg sg = pos) : Distance(ft, in)
 	{
-		i += 12.0;
-		f--;
+		sign = sg;
 	}
 
-	return Distance(f, i);
-}
+	void getdist()
+	{
+		Distance::getdist();
+		char ch;
+		cout << "Enter sign (+ or -): ";
+		cin >> ch;
+		sign = (ch == '+') ? pos : neg;
+	}
+
+	void showdist() const
+	{
+		cout << ((sign == pos) ? "(+)" : "(-)");
+		Distance::showdist();
+	}
+};
 
 int main()
 {
-	Distance dist1, dist3;
-	dist1.getdist();
+	DistSing alpha;
+	alpha.getdist();
 
-	Distance dist2(3, 6.25);
+	DistSing beta(11, 6.25);
 
-	dist3 = dist1 - dist2;
+	DistSing gamma(100, 5.5, neg);
 
-	cout << "\ndist1 = ";
-	dist1.showdist();
-	cout << "\ndist2 = ";
-	dist2.showdist();
-	cout << "\ndist3 = ";
-	dist3.showdist();
+	cout << "\nA = ";
+	alpha.showdist();
+	cout << "\nB = ";
+	beta.showdist();
+	cout << "\nC = ";
+	gamma.showdist();
 
 	cout << endl;
 
